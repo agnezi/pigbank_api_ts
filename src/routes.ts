@@ -2,12 +2,15 @@ import { Router } from 'express';
 import AuthMiddleware from './middlewares/auth';
 
 import UsersController from './controllers/UsersController';
+import EarningsController from './controllers/EarningsController';
 
 const routes = Router();
 
 routes.post("/signup", UsersController.store);
 routes.post("/signin", UsersController.auth);
+
 //middleware
-routes.use("/dashboard", AuthMiddleware.tokenAuth);
+routes.use("/earnings", AuthMiddleware.tokenAuth);
+routes.post('/earnings/create_earning', EarningsController.store);
 
 export default routes;

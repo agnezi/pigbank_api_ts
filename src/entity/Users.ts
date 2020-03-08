@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Earnings } from './Earnings';
+import { Spendings } from './Spendings';
 
 @Entity()
 export class Users {
@@ -17,6 +19,12 @@ export class Users {
 
   @Column()
   phone: string;
+
+  @OneToMany(type => Earnings, earnings => earnings.user)
+  earnings: Earnings[]
+
+  @OneToMany(type => Spendings, spendings => spendings.user)
+  spendings: Spendings[]
 
   @Column({
     select: false

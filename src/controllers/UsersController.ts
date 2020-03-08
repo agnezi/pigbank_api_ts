@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import authConfig from '../config/auth.json';
 
-const hashAndSalt: any = process.env.HASH_AND_SALT_CODE;
 
 class UsersController {
 
@@ -20,10 +19,10 @@ class UsersController {
           return res.status(406).json({ error: 'Username, email or phone already exists ' })
         }
 
-        const hash = await bcrypt.hash(password, hashAndSalt);
+        const hash = await bcrypt.hash(password, 10);
         password = hash;
 
-        const user = getRepository(Users).create({
+        const new_user = getRepository(Users).create({
           name,
           username,
           email,
@@ -31,10 +30,12 @@ class UsersController {
           password,
         })
 
-        await getRepository(Users).save(user);
-        const token = jwt.sign({ id: user.id }, authConfig.secret, {
+        await getRepository(Users).save(new_user);
+        const token = jwt.sign({ id: new_user.id }, authConfig.secret, {
           expiresIn: 864000
         });
+
+        const user = await getRepository(Users).findOne({ id: new_user.id })
 
         return res.status(200).json({ user, token });
       } else {
