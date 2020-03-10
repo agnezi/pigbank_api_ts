@@ -11,6 +11,7 @@ routes.post("/signin", UsersController.auth);
 
 //middleware
 routes.use("/earnings", AuthMiddleware.tokenAuth);
-routes.post('/earnings/create_earning', EarningsController.store);
+routes.post("/earnings/create_earning", EarningsController.store);
+routes.get("/earnings/:user_id/all", EarningsController.index);
 
 export default routes;
