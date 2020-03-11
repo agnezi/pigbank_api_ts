@@ -1,26 +1,26 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Users } from './Users';
 
 @Entity()
 export class Earnings {
-  @PrimaryGeneratedColumn('uuid')
-  id: string
+	@PrimaryGeneratedColumn('uuid')
+	id: string
 
-  @Column()
-  registered_at: Date
+	@Column()
+	registered_at: Date
 
-  @Column()
-   earning_date: Date
+	@Column()
+	earning_date: Date
 
-  @Column()
-  type: string
+	@Column()
+	type: string
 
-  @Column()
-  category: string
+	@Column()
+	category: string
 
-  @Column()
-  value: number
+	@Column()
+	value: number
 
-  @ManyToOne(type => Users, user => user.earnings)
-  user: Users
+	@ManyToOne(type => Users, user => user.earnings)
+	user: Users
 }
